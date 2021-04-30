@@ -6,7 +6,7 @@ import ImgSkew as skew
 import THPTQGutils as utils
 
 ########################################################################
-pathImage = "21.jpg"
+pathImage = "22.jpg"
 heightImg = 4060
 widthImg  = 3020
 ########################################################################
