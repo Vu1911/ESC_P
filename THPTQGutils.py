@@ -137,8 +137,6 @@ def getAnswers(tables):
         rows = np.vsplit(table, 5)
         row_matrix = []
         for row in rows:
-            if(question_count == 0):
-                plt.imsave("row.jpg", row)
             question_count += 1
             columns = np.hsplit(row, 4)
             column_matrix = []
@@ -168,7 +166,7 @@ def getAnswers(tables):
             columns = []
             c = 0
             for column in row:
-                if column > min+(max-min)*(32+(max-min)//1000)/100:
+                if column > 8800:
                     c = 0
                 else:
                     c = 1

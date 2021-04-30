@@ -6,7 +6,7 @@ import ImgSkew as skew
 import THPTQGutils as utils
 
 ########################################################################
-pathImage = "11.jpg"
+pathImage = "21.jpg"
 heightImg = 4060
 widthImg  = 3020
 ########################################################################
@@ -35,17 +35,17 @@ answers = utils.getAnswers(imgTables)
 
 imgTest = imgSkewedShadeRemoved.copy()
 
-# for horizontalAlignPoint in horizontalAlignPoints :
-#     # print(horizontalAlignPoint)
-#     imgTest = cv2.circle(imgTest, tuple(horizontalAlignPoint), radius=10, color=(0, 0, 255), thickness=-1)
-#
-# for verticalAlignPoint in verticalAlignPoints :
-#     # print(horizontalAlignPoint)
-#     imgTest = cv2.circle(imgTest, tuple(verticalAlignPoint), radius=10, color=(0, 0, 255), thickness=-1)
-#
-# print(len(verticalAlignContours))
-# imgTest = cv2.drawContours(imgTest, verticalAlignContours[1:17], -1, (0, 255, 0), 10)
-# imgTest = cv2.drawContours(imgTest, horizontalAlignContours[11:], -1, (0,255,0), 10)
+for horizontalAlignPoint in horizontalAlignPoints :
+    # print(horizontalAlignPoint)
+    imgTest = cv2.circle(imgTest, tuple(horizontalAlignPoint), radius=10, color=(0, 0, 255), thickness=-1)
+
+for verticalAlignPoint in verticalAlignPoints :
+    # print(horizontalAlignPoint)
+    imgTest = cv2.circle(imgTest, tuple(verticalAlignPoint), radius=10, color=(0, 0, 255), thickness=-1)
+
+print(len(verticalAlignContours))
+imgTest = cv2.drawContours(imgTest, verticalAlignContours[1:17], -1, (0, 255, 0), 10)
+imgTest = cv2.drawContours(imgTest, horizontalAlignContours[11:], -1, (0,255,0), 10)
 
 plt.figure(figsize=(30, 22))
 plt.imshow(imgTest)
