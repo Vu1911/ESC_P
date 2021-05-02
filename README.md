@@ -9,6 +9,7 @@ System requirement:
 The image has to be captured by a device whose camera is at least 13 megapixel for guaranteeing the best performance, the highest precision. The answer sheet should be placed in a dark-coloured, low contrast, flat, large surface. The camera must obtain all four edges of the paper but not be too far from that paper. The angle between the camera frame and the paper must not be drastically different. Images capturing the bubble answer sheet of the Vietnamese University Entrance Examination have some common features. They all are captured from above and the light source is usually making a shadow area of the image taker onto the answer sheet surface. All the images are successful taking four edges and have decent angles with the answer sheet.
 
 Instruction:
+
 Store the answer key in a text file named "answer_key.txt" with the following format:
 1.A
 2.B
