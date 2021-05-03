@@ -116,14 +116,9 @@ def cutToTables(imgSkewed, horizontalAlignPoints, verticalAlignPoints):
 
     for y in range(0, 16, 4):
         for x in range(0, 30, 5):
-            up = 30
-            if (x == 0 and y == 0):
-                up = 60
             table = imgSkewed[
                     horizontalAlignPoints[x][1] - 30: horizontalAlignPoints[x + 4][1] + 30,
                     verticalAlignPoints[y][0] - 10: verticalAlignPoints[y + 3][0] + 50]
-            # cv2.imshow("la", table)
-            # cv2.waitKey()
             tables.append(table)
     return tables
 
