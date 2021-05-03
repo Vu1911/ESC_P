@@ -11,18 +11,7 @@ pathImage = "22.jpg"
 heightImg = 4060
 widthImg  = 3020
 ########################################################################
-# def checkQues(ans):
-#     if(sum(ans)>1 or sum(ans)==0):
-#         return None
-#     else:
-#         if(ans[0] == 1):
-#             return 'A'
-#         elif(ans[1] == 1):
-#             return 'B'
-#         elif(ans[2] == 1):
-#             return 'C'
-#         else:
-#             return 'D'
+
 def checkQues(ans):
     defi = {0:'A', 1:'B', 2:'C', 3:'D'}
     str = ''
@@ -38,6 +27,7 @@ def markCalculation(userAnswers):
     while True:
         k += 1
         ans = str(answersInput.readline()).strip()
+        # skip condition len(checkQues(userAnswers[i][j]))==1 when u calculate Accuracy
         if( ans == checkQues(userAnswers[i][j]) and len(checkQues(userAnswers[i][j]))==1):
             countCorrectAns += 1
             print(k, ans, checkQues(userAnswers[i][j]), countCorrectAns*10/120)
