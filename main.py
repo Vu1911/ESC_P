@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import ImgPreProcess as imgpre
 import ImgSkew as skew
 import THPTQGutils as utils
+import ESCengine as engine
 
 ########################################################################
 pathImage = "22.jpg"
