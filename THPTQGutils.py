@@ -149,13 +149,8 @@ def getAnswers(tables):
                 if pixel < min:
                     min = pixel
                 column_matrix.append(pixel)
-            print(question_count)
-            print(column_matrix)
             row_matrix.append(column_matrix)
         question_matrix.append(row_matrix)
-
-    print(min)
-    print(max)
 
     answers = []
     question_number = 0
@@ -170,7 +165,6 @@ def getAnswers(tables):
                     c = 0
                 else:
                     c = 1
-                    print(question_number)
                 columns.append(c)
             rows.append(columns)
         answers.append(rows)
