@@ -10,43 +10,84 @@ pathImage = "22.jpg"
 heightImg = 4060
 widthImg  = 3020
 ########################################################################
+# def checkQues(ans):
+#     if(sum(ans)>1 or sum(ans)==0):
+#         return None
+#     else:
+#         if(ans[0] == 1):
+#             return 'A'
+#         elif(ans[1] == 1):
+#             return 'B'
+#         elif(ans[2] == 1):
+#             return 'C'
+#         else:
+#             return 'D'
+def checkQues(ans):
+    defi = {0:'A', 1:'B', 2:'C', 3:'D'}
+    str = ''
+    for i in range(0, len(ans)):
+        if(ans[i] == 1):
+            str += defi[i]
+    return str
 
-img = cv2.imread(pathImage)
-imgResize = cv2.resize(img, (widthImg, heightImg)) # RESIZE IMAGE
-imgPre = imgpre.preprocessForContourDetect(img)
+def markCalculation(userAnswers):
+    answersInput = open('answerInput.txt')
+    countCorrectAns = 0
+    i, j, k = 0, 0, 0
+    while True:
+        k += 1
+        ans = str(answersInput.readline()).strip()
+        if( ans == checkQues(userAnswers[i][j]) and len(checkQues(userAnswers[i][j]))==1):
+            countCorrectAns += 1
+            print(k, ans, checkQues(userAnswers[i][j]), countCorrectAns*10/120)
+        else:
+            print(k, ans, checkQues(userAnswers[i][j]))
+        j += 1
+        if( j == 5 ):
+            i += 1
+            j = 0
+        if( i == 24 ):
+            break
+    print("TOTAL Score:", countCorrectAns*10/120)
 
-contours, hierarchy = cv2.findContours(imgPre, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) # FIND ALL CONTOURS
-biggestRectangle, max_area = imgpre.biggestRectangle4Point(contours)
-rectanglePoints = imgpre.reorderRectangleContour(biggestRectangle)
+if __name__ == '__main__':
+    img = cv2.imread(pathImage)
+    imgResize = cv2.resize(img, (widthImg, heightImg))  # RESIZE IMAGE
+    imgPre = imgpre.preprocessForContourDetect(img)
 
-imgSkewedColored = skew.skewRectanglePerspective(img, rectanglePoints, widthImg, heightImg)
-imgSkewedShadeRemoved = imgpre.shadeRemove(imgSkewedColored)
-imgSkewedGrayShadeRemoved = cv2.cvtColor(imgSkewedShadeRemoved, cv2.COLOR_BGR2GRAY)
+    contours, hierarchy = cv2.findContours(imgPre, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)  # FIND ALL CONTOURS
+    biggestRectangle, max_area = imgpre.biggestRectangle4Point(contours)
+    rectanglePoints = imgpre.reorderRectangleContour(biggestRectangle)
 
-imgPre2 = imgpre.preprocessForContourDetect(imgSkewedShadeRemoved)
+    imgSkewedColored = skew.skewRectanglePerspective(img, rectanglePoints, widthImg, heightImg)
+    imgSkewedShadeRemoved = imgpre.shadeRemove(imgSkewedColored)
+    imgSkewedGrayShadeRemoved = cv2.cvtColor(imgSkewedShadeRemoved, cv2.COLOR_BGR2GRAY)
 
-contours2, hierarchy2 = cv2.findContours(imgPre2, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    imgPre2 = imgpre.preprocessForContourDetect(imgSkewedShadeRemoved)
 
-horizontalAlignPoints, verticalAlignPoints, horizontalAlignContours, verticalAlignContours = utils.getAllAlignPoints(contours2, widthImg, heightImg)
+    contours2, hierarchy2 = cv2.findContours(imgPre2, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-imgTables = utils.cutToTables(imgSkewedGrayShadeRemoved, horizontalAlignPoints[11:], verticalAlignPoints[1:])
+    horizontalAlignPoints, verticalAlignPoints, horizontalAlignContours, verticalAlignContours = utils.getAllAlignPoints(
+        contours2, widthImg, heightImg)
 
-answers = utils.getAnswers(imgTables)
+    imgTables = utils.cutToTables(imgSkewedGrayShadeRemoved, horizontalAlignPoints[11:], verticalAlignPoints[1:])
 
-imgTest = imgSkewedShadeRemoved.copy()
+    answers = utils.getAnswers(imgTables)
 
-for horizontalAlignPoint in horizontalAlignPoints :
-    # print(horizontalAlignPoint)
-    imgTest = cv2.circle(imgTest, tuple(horizontalAlignPoint), radius=10, color=(0, 0, 255), thickness=-1)
+    imgTest = imgSkewedShadeRemoved.copy()
 
-for verticalAlignPoint in verticalAlignPoints :
-    # print(horizontalAlignPoint)
-    imgTest = cv2.circle(imgTest, tuple(verticalAlignPoint), radius=10, color=(0, 0, 255), thickness=-1)
+    for horizontalAlignPoint in horizontalAlignPoints:
+        # print(horizontalAlignPoint)
+        imgTest = cv2.circle(imgTest, tuple(horizontalAlignPoint), radius=10, color=(0, 0, 255), thickness=-1)
 
-print(len(verticalAlignContours))
-imgTest = cv2.drawContours(imgTest, verticalAlignContours[1:17], -1, (0, 255, 0), 10)
-imgTest = cv2.drawContours(imgTest, horizontalAlignContours[11:], -1, (0,255,0), 10)
+    for verticalAlignPoint in verticalAlignPoints:
+        # print(horizontalAlignPoint)
+        imgTest = cv2.circle(imgTest, tuple(verticalAlignPoint), radius=10, color=(0, 0, 255), thickness=-1)
+    print(len(verticalAlignContours))
+    markCalculation(answers)
+    imgTest = cv2.drawContours(imgTest, verticalAlignContours[1:17], -1, (0, 255, 0), 10)
+    imgTest = cv2.drawContours(imgTest, horizontalAlignContours[11:], -1, (0, 255, 0), 10)
 
-plt.figure(figsize=(30, 22))
-plt.imshow(imgTest)
-plt.show()
+    plt.figure(figsize=(30, 22))
+    plt.imshow(imgTest)
+    plt.show()
