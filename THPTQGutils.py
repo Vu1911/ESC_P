@@ -118,7 +118,7 @@ def cutToTables(imgSkewed, horizontalAlignPoints, verticalAlignPoints):
         for x in range(0, 30, 5):
             table = imgSkewed[
                     horizontalAlignPoints[x][1] - 30: horizontalAlignPoints[x + 4][1] + 30,
-                    verticalAlignPoints[y][0] - 10: verticalAlignPoints[y + 3][0] + 50]
+                    verticalAlignPoints[y][0] - 10: verticalAlignPoints[y + 3][0] + 70]
             tables.append(table)
     return tables
 
