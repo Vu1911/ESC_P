@@ -1,0 +1,3 @@
+manual grading for answer_2: 86/120 = 7.16
+-> OMR grading = B
+-> P = B / 7.16

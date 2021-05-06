@@ -1,0 +1,3 @@
+manual grading for answer_1: 98/120 = 8.16
+-> OMR grading = A
+-> P = A / 8.16
